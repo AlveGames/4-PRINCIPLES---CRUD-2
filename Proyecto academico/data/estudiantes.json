@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ana",
+    "apellido": "Pérez",
+    "email": "ana@x.com",
+    "carnet": "EST001"
+  },
+  {
+    "id": 2,
+    "nombre": "Luis",
+    "apellido": "Gómez",
+    "email": "luis@x.com",
+    "carnet": "EST002"
+  }
+]

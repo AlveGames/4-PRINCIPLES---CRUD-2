@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "nombre": "Carlos",
+    "apellido": "Ruiz",
+    "email": "carlos@x.com",
+    "titulo": "Ing.",
+    "especialidad": "Programación"
+  },
+  {
+    "id": 2,
+    "nombre": "María",
+    "apellido": "Vera",
+    "email": "maria@x.com",
+    "titulo": "MSc.",
+    "especialidad": "Bases De Datos"
+  }
+]

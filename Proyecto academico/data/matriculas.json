@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "estudiante_id": 1,
+    "materia_id": 1,
+    "periodo": "2026-1",
+    "promedio": 16.0,
+    "estado": "Aprobado",
+    "notas": [
+      {
+        "tipo": "deber",
+        "valor": 18.0,
+        "peso": 1.0
+      },
+      {
+        "tipo": "examen",
+        "valor": 15.0,
+        "peso": 2.0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "estudiante_id": 1,
+    "materia_id": 2,
+    "periodo": "2026-1",
+    "promedio": 10.0,
+    "estado": "Reprobado",
+    "notas": [
+      {
+        "tipo": "examen",
+        "valor": 10.0,
+        "peso": 1.0
+      }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "Poo",
+    "codigo": "POO101",
+    "creditos": 4,
+    "docente_id": 1
+  },
+  {
+    "id": 2,
+    "nombre": "Bases De Datos",
+    "codigo": "BD201",
+    "creditos": 3,
+    "docente_id": 1
+  }
+]
