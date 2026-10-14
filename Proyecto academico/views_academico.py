@@ -206,7 +206,7 @@ class DocenteController(CrudBase):
                         datos.get("apellido", docente.apellido),
                         datos.get("email", docente.email),
                         datos.get("titulo", docente.titulo),
-                        datos.get("especialidad", docente.especialidad)),
+                        datos.get("especialidad", docente.especialidad))
         except ValueError as error:
             return False, str(error)
 
