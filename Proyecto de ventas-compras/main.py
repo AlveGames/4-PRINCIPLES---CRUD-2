@@ -4,7 +4,7 @@
 from shared.herramientas import (
     imprimir_titulo, imprimir_exito, imprimir_error, imprimir_info, confirmar
 )
-from views import ClienteController, ProductoController, VentaController
+from views import ClienteController, ProductoController, VentaController, ProveedorController, CompraController
 
 
 class Menu:
@@ -14,7 +14,9 @@ class Menu:
         # A ventas se le pasan los MISMOS clientes y productos.
         self.clientes = ClienteController()
         self.productos = ProductoController()
+        self.proveedores = ProveedorController()
         self.ventas = VentaController(self.clientes, self.productos)
+        self.compras = CompraController(self.proveedores, self.productos)
 
     # ---------- ayudas ----------
     def pausa(self):
@@ -41,6 +43,8 @@ class Menu:
             print("  1. Clientes")
             print("  2. Productos")
             print("  3. Ventas")
+            print("  4. Proveedores")
+            print("  5. Compras")
             print("  0. Salir\n")
             opcion = input("Opción: ").strip()
 
@@ -49,6 +53,10 @@ class Menu:
             elif opcion == "2":
                 self.menu_crud(self.productos)
             elif opcion == "3":
+                self.menu_crud(self.proveedores)
+            elif opcion == "4":
+                self.menu_crud(self.compras)
+            elif opcion == "5":
                 self.menu_crud(self.ventas)
             elif opcion == "0":
                 imprimir_info("¡Hasta luego! 👋")
@@ -73,6 +81,8 @@ class Menu:
             print("  6. Eliminar")
             if controlador == self.ventas:
                 print("  7. Ver factura")
+            if controlador == self.compras:
+                print("  7. Ver orden")
             print("  0. Volver\n")
             opcion = input("Opción: ").strip()
 
@@ -92,6 +102,8 @@ class Menu:
             elif opcion == "6":
                 self.eliminar(controlador)
             elif opcion == "7" and controlador == self.ventas:
+                self.ver_factura()
+            elif opcion == "7" and controlador == self.compras:
                 self.ver_factura()
             elif opcion == "0":
                 break
