@@ -69,8 +69,8 @@ class Menu:
     # El mismo menú sirve para clientes, productos y ventas,
     # porque los tres controladores tienen los mismos métodos.
     def menu_crud(self, controlador):
-        titulo = controlador.nombre.upper() + "S"     # CLIENTES, PRODUCTOS, VENTAS
-
+        titulo = controlador.nombre.upper() + ("ES" if controlador.nombre[-1] not in "aeiou" else "S")     # CLIENTES, PRODUCTOS, VENTAS
+                                            #se agrego esto porque en proveedor el titulo lo ponia como proveedors
         while True:
             imprimir_titulo(titulo)
             print(f"  1. Crear {controlador.nombre}")

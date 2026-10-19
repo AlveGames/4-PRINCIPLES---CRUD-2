@@ -604,11 +604,15 @@ class ProveedorController(CrudBase):
         return mayor + 1
 
     def crear(self, datos):
-        # No puede haber dos proveedors con el mismo email
+        # No puede haber dos proveedores con el mismo email
         email = str(datos.get("email", "")).strip().lower()
         for proveedor in self.lista:
             if proveedor.email == email:
                 return False, "Ese email ya está registrado"
+        ruc = str(datos.get("ruc", "")).strip()
+        for proveedor in self.lista:
+            if proveedor.ruc == ruc:
+                return False, "Ese RUC ya está registrado"
 
         # Si algún dato está mal, el modelo lanza ValueError
         try:
@@ -638,6 +642,12 @@ class ProveedorController(CrudBase):
             for otro in self.lista:
                 if otro.email == email and otro.id != id_proveedor:
                     return False, "Ese email ya está registrado"
+
+        if "ruc" in datos:
+            ruc = str(datos["ruc"]).strip()
+            for otro in self.lista:
+                if otro.ruc == ruc and otro.id != id_proveedor:
+                    return False, "Ese RUC ya está registrado"
 
         # Creamos un proveedor nuevo con los cambios. Si algo falla,
         # el proveedor viejo queda igual.
@@ -792,7 +802,7 @@ class CompraController(CrudBase):
         if proveedor is None:
             nombre_proveedor = "eliminado"
         else:
-            nombre_proveedor = proveedor.nombre_completo
+            nombre_proveedor = proveedor.etiqueta()
 
         texto = f"ORDEN DE COMPRA #{compra.id}   fecha: {compra.fecha}\n"
         texto += f"Proveedor: {nombre_proveedor}\n"
