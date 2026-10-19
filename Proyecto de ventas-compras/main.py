@@ -53,11 +53,11 @@ class Menu:
             elif opcion == "2":
                 self.menu_crud(self.productos)
             elif opcion == "3":
-                self.menu_crud(self.proveedores)
-            elif opcion == "4":
-                self.menu_crud(self.compras)
-            elif opcion == "5":
                 self.menu_crud(self.ventas)
+            elif opcion == "4":
+                self.menu_crud(self.proveedores)
+            elif opcion == "5":
+                self.menu_crud(self.compras)
             elif opcion == "0":
                 imprimir_info("¡Hasta luego! 👋")
                 break
@@ -89,6 +89,8 @@ class Menu:
             if opcion == "1":
                 if controlador == self.ventas:
                     self.crear_venta()
+                elif controlador == self.compras:
+                    self.crear_compra()
                 else:
                     self.crear(controlador)
             elif opcion == "2":
@@ -104,7 +106,7 @@ class Menu:
             elif opcion == "7" and controlador == self.ventas:
                 self.ver_factura()
             elif opcion == "7" and controlador == self.compras:
-                self.ver_factura()
+                self.ver_orden()
             elif opcion == "0":
                 break
             else:
@@ -158,11 +160,11 @@ class Menu:
 
     def actualizar(self, controlador):
         imprimir_titulo(f"ACTUALIZAR {controlador.nombre.upper()}")
-        if controlador == self.ventas:
-            imprimir_error("Las ventas registradas no se pueden modificar")
+        if controlador == self.ventas or controlador == self.compras:
+            imprimir_error(f"Las {controlador.nombre}s registradas no se pueden modificar")
             self.pausa()
             return
-
+        
         id_registro = self.pedir_entero("Id: ")
         objeto = controlador.obtener(id_registro)
         if objeto is None:
@@ -238,6 +240,53 @@ class Menu:
         else:
             print(texto)
         self.pausa()
+
+
+
+
+
+    # ---------- solo para compras ----------
+    def crear_compra(self):
+        imprimir_titulo("REGISTRAR COMPRA")
+        proveedor_id = self.pedir_entero("Id del proveedor: ")
+        if proveedor_id is None:
+            imprimir_error("El id debe ser un número")
+            self.pausa()
+            return
+
+        imprimir_info("Productos disponibles:")
+        for producto in self.productos.leer():
+            print(f"  {producto}")
+
+        # Se piden productos hasta que el usuario escriba 0
+        items = []
+        while True:
+            producto_id = self.pedir_entero("\nId del producto (0 para terminar): ")
+            if producto_id is None or producto_id == 0:
+                break
+            cantidad = self.pedir_entero("Cantidad: ")
+            if cantidad is None or cantidad <= 0:
+                imprimir_error("Cantidad inválida")
+                continue
+            costo = input("Costo unitario: ")
+            items.append({"producto_id": producto_id, "cantidad": cantidad, "costo_unitario": costo})
+
+        exito, mensaje = self.compras.crear({"proveedor_id": proveedor_id, "items": items})
+        self.mostrar_resultado(exito, mensaje)
+        self.pausa()
+
+    def ver_orden(self):
+        imprimir_titulo("ORDEN DE COMPRA")
+        id_compra = self.pedir_entero("Id de la compra: ")
+        texto = self.compras.orden_compra(id_compra)
+        if texto is None:
+            imprimir_error("No existe esa compra")
+        else:
+            print(texto)
+        self.pausa()
+
+
+
 
 
 # Solo arranca si se ejecuta "python main.py"
